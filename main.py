@@ -3,7 +3,7 @@ import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
 import pyautogui as pag
 import screen_brightness_control as sbc
-from distance_and_window_size import *
+from window_resize import *
 
 
 cap = cv2.VideoCapture(0)
