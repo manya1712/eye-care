@@ -3,13 +3,14 @@ import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
 import pyautogui as pag
 import screen_brightness_control as sbc
-
+from distance_and_window_size import *
 
 
 cap = cv2.VideoCapture(0)
 detector = FaceMeshDetector()
 alert = 0
 
+obj = changes()
 
 while True:
     success, img = cap.read()
@@ -40,7 +41,11 @@ while True:
             else:
                 pag.alert(text="You are very close to your Display, Doctors recommend to stay atleast 50 cms away from your monitor to avoid eye-strain", title="Distance Alert")
                 alert += 1
-                
+        else:
+            change(i=int(D), obj=obj)
 
+    '''
+    If you want to see Distance of your face from your PC realtime, un-comment the line below
+    '''
     # cv2.imshow("Image", img)
     cv2.waitKey(1)

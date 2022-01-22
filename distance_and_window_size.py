@@ -1,15 +1,7 @@
-from mimetypes import init
-import cv2
-import cvzone
-from cvzone.FaceMeshModule import FaceMeshDetector
-from pip import main
+
 import pyautogui as pag
 
-
-cap = cv2.VideoCapture(0)
-detector = FaceMeshDetector()
 alert = 0
-temp = int(0)
 
 
 class changes():
@@ -45,33 +37,33 @@ def change(i, obj):
     return
 
 
-def main():
-    obj = changes()
-    while True:
-        success, img = cap.read()
-        img, faces = detector.findFaceMesh(img, draw=False)
+# def main():
+#     obj = changes()
+#     while True:
+#         success, img = cap.read()
+#         img, faces = detector.findFaceMesh(img, draw=False)
 
-        if faces:
-            face = faces[0]
+#         if faces:
+#             face = faces[0]
 
-            left_pupil = face[145]
-            right_pupil = face[374]
+#             left_pupil = face[145]
+#             right_pupil = face[374]
 
-            w, _info, _image = detector.findDistance(
-                left_pupil, right_pupil, img)
+#             w, _info, _image = detector.findDistance(
+#                 left_pupil, right_pupil, img)
 
-            W = 6.3
+#             W = 6.3
 
-            f = 600
-            D = W*f/w
+#             f = 600
+#             D = W*f/w
 
-            cvzone.putTextRect(
-                img, f'Distance {int(D)} cm', (face[10][0]-100, face[10][1]-20), 2, 3)
+#             cvzone.putTextRect(
+#                 img, f'Distance {int(D)} cm', (face[10][0]-100, face[10][1]-20), 2, 3)
 
-            change(i=int(D), obj=obj)
+#             change(i=int(D), obj=obj)
 
-        cv2.imshow("Image", img)
-        cv2.waitKey(1)
+#         cv2.imshow("Image", img)
+#         cv2.waitKey(1)
 
 
-main()
+# main()
