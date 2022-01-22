@@ -16,5 +16,8 @@ protobuf==3.19.3
 pycodestyle==2.8.0
 pyparsing==3.0.6
 python-dateutil==2.8.2
+pywin32==303
+screen-brightness-control==0.11.3
 six==1.16.0
 toml==0.10.2
+WMI==1.5.1
