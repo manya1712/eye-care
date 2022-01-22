@@ -1,13 +1,17 @@
-from turtle import left
+
 import cv2
+import pyautogui as pag
 import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
-from cvzone.PlotModule import LivePlot
+import time
 
 cap = cv2.VideoCapture(0)
 detector = FaceMeshDetector(maxFaces = 1)
 
 idList =[22,23,24,26,110,157,158,159,160,161,130,243]
+start_time = time.time()*1000.0
+
+curr_time = start_time
 
 while True:
 
@@ -29,10 +33,21 @@ while True:
         #lengthHor, _ = detector.findDistance(leftLeft, leftRight)
         lengthVer, _ = detector.findDistance(leftUp, leftDown)
         cv2.line(img, leftUp, leftDown, (0,200,0), 3)
+        blink = int((lengthVer*100))
         #cv2.line(img, leftLeft, leftRight, (0,200,0), 3)
 
         print(int((lengthVer*100)))
-        
+
+        curr_time = time.time()*1000.0
+
+        if blink <= 1200:
+            start_time = curr_time
+
+        if int(curr_time - start_time) >= 10000:
+            pag.alert(text="You have'nt blinked from past 10 seconds , to maintain eye health don't continuously stare the screen ", title="Blink Alert")
+            start_time = curr_time
+
+
     
     cv2.imshow("Image", img)
     cv2.waitKey(1)

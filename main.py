@@ -18,7 +18,7 @@ while True:
     success, img = cap.read()
     img, faces = detector.findFaceMesh(img, draw=False)
 
-    curr_time = time.time()
+    curr_time = time.time()*1000.0
 
     if int(curr_time - start_time) >= 11200000:
         pag.alert(text="You have been staring at monitor for very long time. Please look at objects 20m far away to refocus", title="Time Alert")
