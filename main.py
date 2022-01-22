@@ -4,17 +4,25 @@ from cvzone.FaceMeshModule import FaceMeshDetector
 import pyautogui as pag
 import screen_brightness_control as sbc
 from window_resize import *
-
+import time
 
 cap = cv2.VideoCapture(0)
 detector = FaceMeshDetector()
 alert = 0
+close = 0
 
 obj = changes()
-
+start_time = time.time()*1000.0
+curr_time = start_time
 while True:
     success, img = cap.read()
     img, faces = detector.findFaceMesh(img, draw=False)
+
+    curr_time = time.time()
+
+    if int(curr_time - start_time) >= 11200000:
+        pag.alert(text="You have been staring at monitor for very long time. Please look at objects 20m far away to refocus", title="Time Alert")
+        start_time = curr_time
 
     if faces:
         face = faces[0]
@@ -43,6 +51,13 @@ while True:
                 alert += 1
         else:
             change(i=int(D), obj=obj)
+
+    if not faces:
+        close += 1
+        if close >= 500:
+            cap.release()
+            cv2.destroyAllWindows()
+            break
 
     '''
     If you want to see Distance of your face from your PC realtime, un-comment the line below
