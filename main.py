@@ -1,5 +1,4 @@
 import cv2
-import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
 import pyautogui as pag
 import screen_brightness_control as sbc
@@ -56,7 +55,7 @@ while True:
 
         if int(curr_time_blink - start_time_blink) >= 20000:
             pag.alert(
-                text="You have'nt blinked from past 10 seconds\nTo maintain eye health don't continuously stare the screen ", title="Blink Alert")
+                text="You have'nt blinked from past 20 seconds\nTo maintain eye health don't continuously stare the screen ", title="Blink Alert")
             start_time_blink = curr_time_blink
 
         # cvzone.putTextRect(
