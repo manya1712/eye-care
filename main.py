@@ -14,6 +14,12 @@ close = 0
 obj = changes()
 start_time = time.time()*1000.0
 curr_time = start_time
+
+
+start_time_blink = time.time()*1000.0
+curr_time_blink = start_time_blink
+
+
 while True:
     success, img = cap.read()
     img, faces = detector.findFaceMesh(img, draw=False)
@@ -38,8 +44,23 @@ while True:
         f = 600
         D = W*f/w
 
-        cvzone.putTextRect(
-            img, f'Distance {int(D)} cm', (face[10][0]-100, face[10][1]-20), 2, 3)
+        leftUp = face[159]
+        leftDown = face[23]
+
+        lengthVer, _ = detector.findDistance(leftUp, leftDown)
+        blink = int((lengthVer*100))
+        curr_time_blink = time.time()*1000.0
+
+        if blink <= 1200:
+            start_time_blink = curr_time_blink
+
+        if int(curr_time_blink - start_time_blink) >= 20000:
+            pag.alert(
+                text="You have'nt blinked from past 10 seconds\nTo maintain eye health don't continuously stare the screen ", title="Blink Alert")
+            start_time_blink = curr_time_blink
+
+        # cvzone.putTextRect(
+        #     img, f'Distance {int(D)} cm', (face[10][0]-100, face[10][1]-20), 2, 3)
 
         if D < 30:
             if(alert >= 5):
